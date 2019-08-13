@@ -9,7 +9,11 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try{
     const cars = await db('cars');
-    res.status(200).json(cars);
+    if(cars.length > 0) {
+      res.status(200).json(cars);
+    } else {
+      res.status(404).json({ message: 'There are no cars in the db' })
+    }
   }
   catch(err) {
     res.status(500).json({ message: 'Error retriving cars from db' });

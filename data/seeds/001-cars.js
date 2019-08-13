@@ -13,7 +13,7 @@ exports.seed = function(knex) {
         {vin: '1NXBR12E5YZ236569', make: 'Toyota', model: 'Corolla', mileage: 190252, transmission: null, title_status: 'junk' },
         {vin: 'WP0AB29991S385642', make: 'Porche', model: '911', mileage: 90252, transmission: null, title_status: 'reconstructed' },
         {vin: 'WP1AA2A27EL107397', make: 'Porche', model: 'Cayenne', mileage: 65252, transmission: null, title_status: null },
-        {vin: 'JN1CZ24D1RX545594', make: 'Nissan', model: '3000ZX', mileage: 165520, transmission: null, title_status: 'affidavit' },
+        {vin: 'JN1CZ24D1RX545594', make: 'Nissan', model: '300ZX', mileage: 165520, transmission: null, title_status: 'affidavit' },
         {vin: '3N1GB22B0LK002494', make: 'Nissan', model: 'Sentra', mileage: 65520, transmission: null, title_status: null }
       ]);
     });

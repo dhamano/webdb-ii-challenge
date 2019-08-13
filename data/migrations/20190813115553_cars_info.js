@@ -9,8 +9,17 @@ exports.up = function(knex) {
     tbl.string('transmission', 128);
     tbl.string('title_status', 128);
   })
+  .createTable('sales', tbl => {
+    tbl.increments();
+    tbl.integer('car_id').unsigned();
+    tbl.foreign('car_id').references('id').inTable('cars');
+    tbl.decimal('sale_price').notNullable();
+    tbl.timestamps(true, true);
+  })
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists('cars');
+  return knex.schema
+    .dropTableIfExists('cars')
+    .dropTableIfExists('sales');
 };
