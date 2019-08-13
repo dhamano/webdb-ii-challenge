@@ -21,13 +21,13 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
     const car = await db('cars').where('id', '=', id);
     if( car.length === 0 ) {
-      res.status(404).json({ message: `Car with id of ${id} does not exist` })
+      res.status(404).json({ message: `Car with id of ${id} does not exist` });
     } else {
       res.status(201).json(car);
     }
   }
   catch(err) {
-    res.status(500).json({ message: 'Error retrieveing car from db' })
+    res.status(500).json({ message: 'Error retrieveing car from db' });
   }
 })
 
@@ -42,6 +42,36 @@ router.post('/', carInfoCheck, async (req, res) => {
   }
 });
 
+router.put('/:id', carInfoCheck, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const count = await db('cars').where('id', '=', id).update(req.body.carInfo);
+    if(count > 0) {
+      const car = await db('cars').where('id','=', id);
+      res.status(200).json(car);
+    } else {
+      res.status(404).json({ message: `The car with id ${id} does not exist` });
+    }
+  }
+  catch(err) {
+    res.status(500).json({ message: 'Error updating car info to db' });
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedCount = await db('cars').where('id', '=', id).del();
+    if(deletedCount > 0) {
+      res.status(204).json();
+    } else {
+      res.status(404).json({ message: `The card with id ${id} does not exist` });
+    }
+  }
+  catch(err) {
+    res.status(500).json({ message: 'There was an error trying to remove card entry from the db' });
+  }
+})
 
 // middleware
 
@@ -67,7 +97,7 @@ function carInfoCheck(req, res, next) {
 
   // check if non-missing values are only spaces
   for(let i = 0; i < toBeChecked.length; i++) {
-    if(values[toBeChecked[i]].trim() === "") {
+    if(toString(values[toBeChecked[i]]).trim() === "") {
       notValid.push(toBeChecked[i]);
     }
   }
