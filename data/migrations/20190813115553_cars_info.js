@@ -20,6 +20,6 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return knex.schema
-    .dropTableIfExists('cars')
-    .dropTableIfExists('sales');
+    .dropTableIfExists('sales')
+    .dropTableIfExists('cars');
 };

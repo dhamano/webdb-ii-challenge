@@ -101,9 +101,11 @@ function carInfoCheck(req, res, next) {
 
   // check if non-missing values are only spaces
   for(let i = 0; i < toBeChecked.length; i++) {
-    if(toString(values[toBeChecked[i]]).trim() === "") {
+    console.log('values[toBeChecked[i]]',values[toBeChecked[i]].trim());
+    if(values[toBeChecked[i]].trim() === "") {
       notValid.push(toBeChecked[i]);
     }
+    console.log('check is spaces', notValid);
   }
 
   // if noValid array is empty continue to post else move on
@@ -117,7 +119,7 @@ function carInfoCheck(req, res, next) {
       }
     }
 
-    res.status(400).json({ message: str });
+    return res.status(400).json({ message: str });
   } else {
     values.transmission = req.body.transmission;
     values.title_status = req.body.title_status;
